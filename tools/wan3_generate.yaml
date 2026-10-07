@@ -170,14 +170,10 @@ parameters:
     zh_Hans: 参考视频链接
   human_description:
     en_US: Set reference video urls. Enter a JSON array. Enter a JSON array or object
-      where applicable. Enter a JSON array or object where applicable. Enter a JSON
-      array or object where applicable. Enter a JSON array or object where applicable.
-      Enter a JSON array or object where applicable.
+      where applicable.
     zh_Hans: 参考视频文件的 URL 数组，用于提取参考视频中的人物形象（及音色，如有），以生成符合参考特征的视频。 数组或对象请使用 JSON 格式。
   llm_description: Set reference video urls. Enter a JSON array. Enter a JSON array
-    or object where applicable. Enter a JSON array or object where applicable. Enter
-    a JSON array or object where applicable. Enter a JSON array or object where applicable.
-    Enter a JSON array or object where applicable.
+    or object where applicable.
 - name: model
   type: select
   required: false
