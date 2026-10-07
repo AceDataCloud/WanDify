@@ -12,7 +12,7 @@ from tools.acedata_client import AceDataWanClient
 class WanTaskRetrieveTool(Tool):
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage, None, None]:
         result = AceDataWanClient(self.runtime.credentials.get("acedata_bearer_token", "")).invoke(
-            "task", tool_parameters
+            "wan_task_retrieve", tool_parameters
         )
         yield self.create_json_message(result)
         for name, value in result.items():
@@ -22,7 +22,8 @@ class WanTaskRetrieveTool(Tool):
                 "video" == "image"
                 or "video" == "mixed"
                 and any(
-                    ext in url.lower().split("?")[0] for ext in [".png", ".jpg", ".jpeg", ".webp"]
+                    suffix in url.lower().split("?")[0]
+                    for suffix in [".png", ".jpg", ".jpeg", ".webp"]
                 )
             ):
                 yield self.create_image_message(url)

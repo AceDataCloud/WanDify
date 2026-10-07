@@ -8,45 +8,43 @@ description:
   human:
     en_US: Generate a video with Ace Data Cloud Wan (Alibaba) Videos API.
     zh_Hans: 通过 Ace Data Cloud 通义万相 Wan API 生成视频。
-  llm: Generate a video from a text prompt or an image via Ace Data Cloud Wan (Alibaba)
-    Videos API. Generation returns a task ID. Query the same task until complete;
-    never resubmit a pending generation.
+  llm: Generate a video with Ace Data Cloud Wan (Alibaba) Videos API. For asynchronous
+    results, preserve task_id and use the task retrieval tool until completion. A
+    successful submission is not completed output.
 parameters:
 - name: audio
   type: boolean
   required: false
+  form: form
   label:
     en_US: Generate Audio
     zh_Hans: 生成音频
   human_description:
     en_US: Whether the generated video should include audio. Default false.
-    zh_Hans: 是否生成音频，默认 false。
+    zh_Hans: 指定生成的视频是否包含声音。
   llm_description: Whether the generated video should include audio. Default false.
-  form: form
-  default: false
 - name: prompt_extend
   type: boolean
   required: false
+  form: form
   label:
     en_US: LLM Prompt Rewrite
     zh_Hans: 提示词扩写
   human_description:
     en_US: Enable LLM-based prompt rewriting for better results.
-    zh_Hans: 启用 LLM 自动扩写提示词。
+    zh_Hans: 是否开启提示词智能改写。开启后，将使用大模型对输入的提示词进行智能扩写，可显著提升较短提示词的生成效果，但会增加处理时间。
   llm_description: Enable LLM-based prompt rewriting for better results.
-  form: form
-  default: false
 - name: action
   type: select
   required: false
+  form: form
   label:
     en_US: Action
     zh_Hans: 行为
   human_description:
     en_US: Choose how to generate the video.
-    zh_Hans: 选择视频生成方式。
+    zh_Hans: Wan 2.6 的操作类型；wan3.0-video 可省略，由 media 自动识别模式。
   llm_description: Choose how to generate the video.
-  form: form
   default: text2video
   options:
   - value: text2video
@@ -60,14 +58,16 @@ parameters:
 - name: resolution
   type: select
   required: false
+  form: form
   label:
     en_US: Resolution
     zh_Hans: 分辨率
   human_description:
-    en_US: Video resolution. Default 720P.
-    zh_Hans: 视频分辨率，默认 720P。
-  llm_description: Video resolution. Default 720P.
-  form: form
+    en_US: Set resolution; supported combinations are described by the current API.
+    zh_Hans: 指定生成视频的分辨率等级，用于调整视频清晰度（总像素数）。模型会根据所选分辨率等级自动缩放至相近的总像素数，生成视频的宽高比将尽量与输入图片
+      `image_url` 的宽高比保持一致。
+  llm_description: Set resolution; supported combinations are described by the current
+    API.
   default: 720P
   options:
   - value: 480P
@@ -85,14 +85,14 @@ parameters:
 - name: shot_type
   type: select
   required: false
+  form: form
   label:
     en_US: Shot type
     zh_Hans: 镜头类型
   human_description:
     en_US: Optional shot type.
-    zh_Hans: 可选镜头类型。
+    zh_Hans: 指定生成视频的镜头类型，即视频由单一连续镜头（`single`）还是多个切换镜头（`multi`）构成。
   llm_description: Optional shot type.
-  form: form
   options:
   - value: single
     label:
@@ -105,83 +105,94 @@ parameters:
 - name: duration
   type: number
   required: false
+  form: form
   label:
     en_US: Duration
     zh_Hans: 时长
   human_description:
-    en_US: Duration in seconds. Options 5, 10, or 15.
-    zh_Hans: 视频时长。可选 5、10、15。
-  llm_description: Duration in seconds. Options 5, 10, or 15.
-  form: form
+    en_US: Duration. Wan 2.6 supports 5, 10, or 15 seconds; wan3.0-video supports
+      integer 2–30 seconds or -1 smart duration. Final billing uses actual output
+      seconds plus reference-video input seconds.
+    zh_Hans: 生成时长。Wan 2.6 支持 5、10、15 秒；wan3.0-video 支持 2–30 秒整数或 -1 智能时长。最终按真实输出秒数，参考视频再加输入秒数结算。
+  llm_description: Duration. Wan 2.6 supports 5, 10, or 15 seconds; wan3.0-video supports
+    integer 2–30 seconds or -1 smart duration. Final billing uses actual output seconds
+    plus reference-video input seconds.
   default: 5
 - name: prompt
   type: string
   required: false
+  form: llm
   label:
     en_US: Prompt
     zh_Hans: 提示词
   human_description:
     en_US: Description of the scene, motion, and style.
-    zh_Hans: 视频场景、动作和风格的描述。
+    zh_Hans: 用于生成视频的提示词。
   llm_description: Description of the scene, motion, and style.
-  form: llm
 - name: negative_prompt
   type: string
   required: false
+  form: form
   label:
     en_US: Negative prompt
     zh_Hans: 反向提示词
   human_description:
     en_US: Content to exclude (max 500 characters).
-    zh_Hans: 不希望出现的内容（最多 500 字符）。
+    zh_Hans: 反向提示词，用于描述不希望在视频画面中出现的内容，可用于限制视频画面。支持中英文，长度不超过 500 个字符，超出部分将自动截断。
   llm_description: Content to exclude (max 500 characters).
-  form: form
 - name: size
   type: string
   required: false
+  form: form
   label:
     en_US: Size
     zh_Hans: 尺寸
   human_description:
     en_US: Optional explicit pixel size (e.g. 1280x720).
-    zh_Hans: 可选显式像素尺寸（如 1280x720）。
+    zh_Hans: 生成视频的尺寸规格。
   llm_description: Optional explicit pixel size (e.g. 1280x720).
-  form: form
 - name: audio_url
   type: string
   required: false
+  form: form
   label:
     en_US: Reference Audio URL
     zh_Hans: 参考音频链接
   human_description:
     en_US: Optional reference audio used when audio is enabled.
-    zh_Hans: 可选参考音频链接（启用音频时使用）。
+    zh_Hans: 音频文件的 URL，模型将根据该音频生成对应的视频。
   llm_description: Optional reference audio used when audio is enabled.
-  form: form
 - name: reference_video_urls
   type: string
   required: false
+  form: form
   label:
     en_US: Reference Video URLs
     zh_Hans: 参考视频链接
   human_description:
     en_US: Comma-separated URLs of reference videos (for wan2.6-r2v). Enter a JSON
-      array.
-    zh_Hans: 多个参考视频 URL，逗号分隔（用于 wan2.6-r2v）。 请填写 JSON 数组。
+      array. Enter a JSON array or object where applicable. Enter a JSON array or
+      object where applicable. Enter a JSON array or object where applicable. Enter
+      a JSON array or object where applicable. Enter a JSON array or object where
+      applicable.
+    zh_Hans: 参考视频文件的 URL 数组，用于提取参考视频中的人物形象（及音色，如有），以生成符合参考特征的视频。 数组或对象请使用 JSON 格式。
   llm_description: Comma-separated URLs of reference videos (for wan2.6-r2v). Enter
-    a JSON array.
-  form: form
+    a JSON array. Enter a JSON array or object where applicable. Enter a JSON array
+    or object where applicable. Enter a JSON array or object where applicable. Enter
+    a JSON array or object where applicable. Enter a JSON array or object where applicable.
 - name: model
   type: select
   required: false
+  form: form
   label:
     en_US: Model
     zh_Hans: 模型
   human_description:
-    en_US: Select the current API model for this operation.
+    en_US: Select a model currently supported by this API. Availability and pricing
+      depend on the chosen model.
     zh_Hans: 视频模型。wan3.0-video 使用 media 自动识别文生、首尾帧或参考素材模式；旧 Wan 2.6 模型继续使用 action。
-  llm_description: Select the current API model for this operation.
-  form: form
+  llm_description: Select a model currently supported by this API. Availability and
+    pricing depend on the chosen model.
   default: wan2.6-t2v
   options:
   - value: wan2.6-i2v
@@ -204,39 +215,55 @@ parameters:
     label:
       en_US: wan3.0-video
       zh_Hans: wan3.0-video
+- name: callback_url
+  type: string
+  required: false
+  form: form
+  label:
+    en_US: Callback Url
+    zh_Hans: 回调 URL
+  human_description:
+    en_US: Set callback url for this operation.
+    zh_Hans: 异步通知的 Webhook 回调 URL。
+  llm_description: Set callback url for this operation.
 - name: image_url
   type: string
   required: false
+  form: form
   label:
     en_US: Image URL
     zh_Hans: 参考图片链接
   human_description:
     en_US: Required for image2video.
-    zh_Hans: image2video 必填。
+    zh_Hans: 起始帧图片的 URL，该图片将作为生成视频的第一帧。
   llm_description: Required for image2video.
-  form: form
 - name: media
   type: string
   required: false
+  form: form
   label:
     en_US: Media
     zh_Hans: 参考媒体
   human_description:
-    en_US: Set media. Enter a JSON array.
-    zh_Hans: media 请填写 JSON 数组。
-  llm_description: Set media. Enter a JSON array.
-  form: form
+    en_US: Wan 3 media array supporting first_frame, last_frame, reference_image,
+      reference_video, reference_audio, file, and link. Reference-video billing uses
+      input plus output video seconds. Enter a JSON array or object where applicable.
+    zh_Hans: Wan 3 多模态素材数组，支持 first_frame、last_frame、reference_image、reference_video、reference_audio、file
+      和 link。参考视频最终按输入秒数加输出秒数计费。 数组或对象请使用 JSON 格式。
+  llm_description: Wan 3 media array supporting first_frame, last_frame, reference_image,
+    reference_video, reference_audio, file, and link. Reference-video billing uses
+    input plus output video seconds. Enter a JSON array or object where applicable.
 - name: ratio
   type: select
   required: false
+  form: form
   label:
     en_US: Ratio
     zh_Hans: 画面比例
   human_description:
-    en_US: Set ratio.
-    zh_Hans: ratio
-  llm_description: Set ratio.
-  form: form
+    en_US: Wan 3 output aspect ratio.
+    zh_Hans: Wan 3 输出画幅。
+  llm_description: Wan 3 output aspect ratio.
   options:
   - value: adaptive
     label:
@@ -265,26 +292,27 @@ parameters:
 - name: seed
   type: number
   required: false
+  form: form
   label:
     en_US: Seed
     zh_Hans: 随机种子
   human_description:
-    en_US: Set seed.
-    zh_Hans: seed
-  llm_description: Set seed.
-  form: form
+    en_US: Wan 3 random seed.
+    zh_Hans: Wan 3 随机种子。
+  llm_description: Wan 3 random seed.
+  min: 0
+  max: 2147483647
 - name: watermark
   type: boolean
   required: false
+  form: form
   label:
     en_US: Watermark
     zh_Hans: 水印
   human_description:
-    en_US: Set watermark.
-    zh_Hans: watermark
-  llm_description: Set watermark.
-  form: form
-  default: false
+    en_US: Whether Wan 3 adds a watermark.
+    zh_Hans: Wan 3 是否添加水印。
+  llm_description: Whether Wan 3 adds a watermark.
 output_schema:
   type: object
   properties:

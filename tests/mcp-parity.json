@@ -1,0 +1,121 @@
+{
+  "mcp_revision": "f0eed10abf310824cb4c33d4944c63d3654ac95b",
+  "mapping": [
+    {
+      "mcp_tool": "wan_list_models",
+      "dify_tools": [],
+      "parameters": {},
+      "unresolved": [],
+      "note": "Model/action selectors and the API reference; informational guidance does not submit a request."
+    },
+    {
+      "mcp_tool": "wan_list_resolutions",
+      "dify_tools": [],
+      "parameters": {},
+      "unresolved": [],
+      "note": "Model/action selectors and the API reference; informational guidance does not submit a request."
+    },
+    {
+      "mcp_tool": "wan_list_actions",
+      "dify_tools": [],
+      "parameters": {},
+      "unresolved": [],
+      "note": "Model/action selectors and the API reference; informational guidance does not submit a request."
+    },
+    {
+      "mcp_tool": "wan_get_task",
+      "dify_tools": [
+        "wan_task_retrieve"
+      ],
+      "parameters": {
+        "task_id": "task_id"
+      },
+      "unresolved": [],
+      "note": "Set action=retrieve"
+    },
+    {
+      "mcp_tool": "wan_get_tasks_batch",
+      "dify_tools": [
+        "wan_tasks_retrieve_batch"
+      ],
+      "parameters": {
+        "task_ids": "ids"
+      },
+      "unresolved": [],
+      "note": "Set action=retrieve_batch"
+    },
+    {
+      "mcp_tool": "wan_generate_video",
+      "dify_tools": [
+        "wan_generate_video",
+        "wan3_generate"
+      ],
+      "parameters": {
+        "prompt": "prompt",
+        "model": "model",
+        "negative_prompt": "negative_prompt",
+        "duration": "duration",
+        "resolution": "resolution",
+        "audio": "audio",
+        "audio_url": "audio_url",
+        "prompt_extend": "prompt_extend",
+        "size": "size",
+        "callback_url": "callback_url",
+        "media": "media",
+        "ratio": "ratio",
+        "seed": "seed",
+        "watermark": "watermark"
+      },
+      "unresolved": [],
+      "note": "Set action=text2video"
+    },
+    {
+      "mcp_tool": "wan_generate_video_from_image",
+      "dify_tools": [
+        "wan_generate_video",
+        "wan3_generate"
+      ],
+      "parameters": {
+        "prompt": "prompt",
+        "image_url": "image_url",
+        "model": "model",
+        "negative_prompt": "negative_prompt",
+        "duration": "duration",
+        "resolution": "resolution",
+        "reference_video_urls": "reference_video_urls",
+        "shot_type": "shot_type",
+        "audio": "audio",
+        "audio_url": "audio_url",
+        "prompt_extend": "prompt_extend",
+        "size": "size",
+        "callback_url": "callback_url",
+        "media": "media",
+        "ratio": "ratio",
+        "seed": "seed",
+        "watermark": "watermark"
+      },
+      "unresolved": [],
+      "note": "Set action=image2video"
+    },
+    {
+      "mcp_tool": "wan_generate_video_all_in_one",
+      "dify_tools": [
+        "wan_generate_video",
+        "wan3_generate"
+      ],
+      "parameters": {
+        "prompt": "prompt",
+        "media": "media",
+        "duration": "duration",
+        "resolution": "resolution",
+        "ratio": "ratio",
+        "audio": "audio",
+        "seed": "seed",
+        "watermark": "watermark",
+        "callback_url": "callback_url"
+      },
+      "unresolved": [],
+      "note": ""
+    }
+  ]
+}

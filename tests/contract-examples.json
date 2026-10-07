@@ -1,0 +1,44 @@
+[
+  {
+    "name": "wan_generate_video-1",
+    "tool": "wan_generate_video",
+    "inputs": {
+      "prompt": "Test"
+    },
+    "method": "POST",
+    "path": "/wan/videos",
+    "body": {
+      "model": "wan2.6-t2v"
+    }
+  },
+  {
+    "name": "wan3_generate-2",
+    "tool": "wan3_generate",
+    "inputs": {
+      "prompt": "Test",
+      "duration": -1
+    },
+    "method": "POST",
+    "path": "/wan/videos",
+    "body": {
+      "duration": -1,
+      "model": "wan3.0-video"
+    }
+  },
+  {
+    "name": "wan_tasks_retrieve_batch-3",
+    "tool": "wan_tasks_retrieve_batch",
+    "inputs": {
+      "ids": "[\"owned-task\"]"
+    },
+    "method": "POST",
+    "path": "/wan/tasks",
+    "body": {
+      "action": "retrieve_batch",
+      "ids": [
+        "owned-task"
+      ]
+    },
+    "read_only": true
+  }
+]

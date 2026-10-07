@@ -10,8 +10,8 @@ label:
 description:
   en_US: Use the Ace Data Cloud Wan APIs in Dify workflows.
   zh_Hans: 在 Dify 工作流中使用 Ace Data Cloud Wan API。
-icon: icon.jpg
-icon_dark: icon.jpg
+icon: icon.png
+icon_dark: icon.png
 resource:
   memory: 268435456
   permission:

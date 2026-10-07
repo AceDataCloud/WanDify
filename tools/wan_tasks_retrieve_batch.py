@@ -9,10 +9,10 @@ from dify_plugin.entities.tool import ToolInvokeMessage
 from tools.acedata_client import AceDataWanClient
 
 
-class WanGenerateTool(Tool):
+class WanTasksRetrieveBatchTool(Tool):
     def _invoke(self, tool_parameters: dict[str, Any]) -> Generator[ToolInvokeMessage, None, None]:
         result = AceDataWanClient(self.runtime.credentials.get("acedata_bearer_token", "")).invoke(
-            "wan_generate_video", tool_parameters
+            "wan_tasks_retrieve_batch", tool_parameters
         )
         yield self.create_json_message(result)
         for name, value in result.items():
