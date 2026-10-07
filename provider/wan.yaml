@@ -9,8 +9,8 @@ identity:
   description:
     en_US: Use the Ace Data Cloud Wan APIs in Dify workflows.
     zh_Hans: 在 Dify 工作流中使用 Ace Data Cloud Wan API。
-  icon: icon.jpg
-  icon_dark: icon.jpg
+  icon: icon.png
+  icon_dark: icon.png
   tags:
   - videos
 credentials_for_provider:
@@ -31,6 +31,7 @@ tools:
 - tools/wan_generate.yaml
 - tools/wan3_generate.yaml
 - tools/wan_task_retrieve.yaml
+- tools/wan_tasks_retrieve_batch.yaml
 extra:
   python:
     source: provider/wan.py

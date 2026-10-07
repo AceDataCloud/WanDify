@@ -1,0 +1,52 @@
+{
+  "tested_at": "2026-10-07T08:53:40.379743+00:00",
+  "environment": "Dify CE 1.17.1 / plugin daemon 0.6.10-local",
+  "transport": "official remote-debug; signature verification enabled",
+  "browser_test_run": true,
+  "unit_contract_tests": "27 passed, 1 warning in 0.53s",
+  "marketplace_toolkit_passed": true,
+  "package_sha256": "9d71c1abf2dba41108acbec87e81d45101537f86ce95c4d2c3a7733708ad7936",
+  "exact_package_serverless_install_passed": true,
+  "marketplace_install_tested": false,
+  "cloud_tested": false,
+  "cases": [
+    {
+      "case": "Wan Audit Batch",
+      "tool": "wan_tasks_retrieve_batch",
+      "workflow_run_id": "25f0ccec-fb76-43ea-a1e6-035db35efe09",
+      "workflow_status": "succeeded",
+      "service_status": "succeeded",
+      "task_id": "",
+      "trace_id": "",
+      "media_urls": [
+        "https://platform2.cdn.acedata.cloud/wan/6f6aea38-2b6a-4c0a-b1db-5ff10f1c9bc9.mp4"
+      ],
+      "error": null,
+      "new_submission": false,
+      "media_verification": [
+        {
+          "case": "Wan Audit Batch",
+          "size": 3888556,
+          "sha256": "c7c748f6b0f25dda1ef25b30afab3bd7b0f5c6f896ec9b747878bf29d41c9f99",
+          "duration": "5.000000",
+          "streams": [
+            {
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1280,
+              "height": 720
+            }
+          ],
+          "full_decode": true
+        }
+      ],
+      "result_fields": [
+        "items"
+      ],
+      "screenshot": "evidence/wan-audit-batch.png",
+      "workflow": "evidence/wan-audit-batch-workflow.json"
+    }
+  ],
+  "primary_blocked": false,
+  "scope_note": "Recorded cases only. Batch regressions reuse earlier paid successful tasks; those media generations are not billed or claimed as new. New paid calls have separate usage reconciliation. Optional untested models/actions are not claimed as passed; original failures and their corrections are preserved."
+}

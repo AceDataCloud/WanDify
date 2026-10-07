@@ -1,0 +1,86 @@
+{
+  "backend_revision": "fa94598267a82545fb1afed6ee26bafd6cbb9ca7",
+  "mcp_revision": "f0eed10abf310824cb4c33d4944c63d3654ac95b",
+  "tools": [
+    {
+      "tool": "wan_generate_video",
+      "method": "POST",
+      "path": "/wan/videos",
+      "parameters": [
+        "audio",
+        "prompt_extend",
+        "action",
+        "resolution",
+        "shot_type",
+        "duration",
+        "prompt",
+        "negative_prompt",
+        "size",
+        "audio_url",
+        "reference_video_urls",
+        "model",
+        "callback_url",
+        "image_url",
+        "media",
+        "ratio",
+        "seed",
+        "watermark"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/6a4ecdbf-b219-4505-8277-5ec4b1ac14f8.json"
+    },
+    {
+      "tool": "wan3_generate",
+      "method": "POST",
+      "path": "/wan/videos",
+      "parameters": [
+        "audio",
+        "prompt_extend",
+        "action",
+        "resolution",
+        "shot_type",
+        "duration",
+        "prompt",
+        "negative_prompt",
+        "size",
+        "audio_url",
+        "reference_video_urls",
+        "model",
+        "callback_url",
+        "image_url",
+        "media",
+        "ratio",
+        "seed",
+        "watermark"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/6a4ecdbf-b219-4505-8277-5ec4b1ac14f8.json"
+    },
+    {
+      "tool": "wan_task_retrieve",
+      "method": "POST",
+      "path": "/wan/tasks",
+      "parameters": [
+        "task_id",
+        "wait_seconds"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/25e349c9-a490-4ae5-9a96-e5952d2dbcf7.json"
+    },
+    {
+      "tool": "wan_tasks_retrieve_batch",
+      "method": "POST",
+      "path": "/wan/tasks",
+      "parameters": [
+        "ids"
+      ],
+      "aliases": {},
+      "schema_source": "openapi/25e349c9-a490-4ae5-9a96-e5952d2dbcf7.json"
+    }
+  ],
+  "mcp_scope": "wan",
+  "notes": [
+    "Informational MCP model/action lists are represented by tool dropdowns and README capability tables.",
+    "GPT Image covers image-generation/editing/task capabilities of the broader OpenAI MCP; chat is supplied by ModelProviderDify."
+  ]
+}
