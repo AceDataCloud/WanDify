@@ -1,0 +1,308 @@
+identity:
+  name: wan_generate_video
+  author: acedatacloud
+  label:
+    en_US: Wan Generate Video
+    zh_Hans: Wan 生成视频
+description:
+  human:
+    en_US: Generate a video with Ace Data Cloud Wan (Alibaba) Videos API.
+    zh_Hans: 通过 Ace Data Cloud 通义万相 Wan API 生成视频。
+  llm: Generate a video from a text prompt or an image via Ace Data Cloud Wan (Alibaba)
+    Videos API. Generation returns a task ID. Query the same task until complete;
+    never resubmit a pending generation.
+parameters:
+- name: audio
+  type: boolean
+  required: false
+  label:
+    en_US: Generate Audio
+    zh_Hans: 生成音频
+  human_description:
+    en_US: Whether the generated video should include audio. Default false.
+    zh_Hans: 是否生成音频，默认 false。
+  llm_description: Whether the generated video should include audio. Default false.
+  form: form
+  default: false
+- name: prompt_extend
+  type: boolean
+  required: false
+  label:
+    en_US: LLM Prompt Rewrite
+    zh_Hans: 提示词扩写
+  human_description:
+    en_US: Enable LLM-based prompt rewriting for better results.
+    zh_Hans: 启用 LLM 自动扩写提示词。
+  llm_description: Enable LLM-based prompt rewriting for better results.
+  form: form
+  default: false
+- name: action
+  type: select
+  required: false
+  label:
+    en_US: Action
+    zh_Hans: 行为
+  human_description:
+    en_US: Choose how to generate the video.
+    zh_Hans: 选择视频生成方式。
+  llm_description: Choose how to generate the video.
+  form: form
+  default: text2video
+  options:
+  - value: text2video
+    label:
+      en_US: text2video
+      zh_Hans: text2video
+  - value: image2video
+    label:
+      en_US: image2video
+      zh_Hans: image2video
+- name: resolution
+  type: select
+  required: false
+  label:
+    en_US: Resolution
+    zh_Hans: 分辨率
+  human_description:
+    en_US: Video resolution. Default 720P.
+    zh_Hans: 视频分辨率，默认 720P。
+  llm_description: Video resolution. Default 720P.
+  form: form
+  default: 720P
+  options:
+  - value: 480P
+    label:
+      en_US: 480P
+      zh_Hans: 480P
+  - value: 720P
+    label:
+      en_US: 720P
+      zh_Hans: 720P
+  - value: 1080P
+    label:
+      en_US: 1080P
+      zh_Hans: 1080P
+- name: shot_type
+  type: select
+  required: false
+  label:
+    en_US: Shot type
+    zh_Hans: 镜头类型
+  human_description:
+    en_US: Optional shot type.
+    zh_Hans: 可选镜头类型。
+  llm_description: Optional shot type.
+  form: form
+  options:
+  - value: single
+    label:
+      en_US: single
+      zh_Hans: single
+  - value: multi
+    label:
+      en_US: multi
+      zh_Hans: multi
+- name: duration
+  type: number
+  required: false
+  label:
+    en_US: Duration
+    zh_Hans: 时长
+  human_description:
+    en_US: Duration in seconds. Options 5, 10, or 15.
+    zh_Hans: 视频时长。可选 5、10、15。
+  llm_description: Duration in seconds. Options 5, 10, or 15.
+  form: form
+  default: 5
+- name: prompt
+  type: string
+  required: false
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  human_description:
+    en_US: Description of the scene, motion, and style.
+    zh_Hans: 视频场景、动作和风格的描述。
+  llm_description: Description of the scene, motion, and style.
+  form: llm
+- name: negative_prompt
+  type: string
+  required: false
+  label:
+    en_US: Negative prompt
+    zh_Hans: 反向提示词
+  human_description:
+    en_US: Content to exclude (max 500 characters).
+    zh_Hans: 不希望出现的内容（最多 500 字符）。
+  llm_description: Content to exclude (max 500 characters).
+  form: form
+- name: size
+  type: string
+  required: false
+  label:
+    en_US: Size
+    zh_Hans: 尺寸
+  human_description:
+    en_US: Optional explicit pixel size (e.g. 1280x720).
+    zh_Hans: 可选显式像素尺寸（如 1280x720）。
+  llm_description: Optional explicit pixel size (e.g. 1280x720).
+  form: form
+- name: audio_url
+  type: string
+  required: false
+  label:
+    en_US: Reference Audio URL
+    zh_Hans: 参考音频链接
+  human_description:
+    en_US: Optional reference audio used when audio is enabled.
+    zh_Hans: 可选参考音频链接（启用音频时使用）。
+  llm_description: Optional reference audio used when audio is enabled.
+  form: form
+- name: reference_video_urls
+  type: string
+  required: false
+  label:
+    en_US: Reference Video URLs
+    zh_Hans: 参考视频链接
+  human_description:
+    en_US: Comma-separated URLs of reference videos (for wan2.6-r2v). Enter a JSON
+      array.
+    zh_Hans: 多个参考视频 URL，逗号分隔（用于 wan2.6-r2v）。 请填写 JSON 数组。
+  llm_description: Comma-separated URLs of reference videos (for wan2.6-r2v). Enter
+    a JSON array.
+  form: form
+- name: model
+  type: select
+  required: false
+  label:
+    en_US: Model
+    zh_Hans: 模型
+  human_description:
+    en_US: Select the current API model for this operation.
+    zh_Hans: 视频模型。wan3.0-video 使用 media 自动识别文生、首尾帧或参考素材模式；旧 Wan 2.6 模型继续使用 action。
+  llm_description: Select the current API model for this operation.
+  form: form
+  default: wan2.6-t2v
+  options:
+  - value: wan2.6-i2v
+    label:
+      en_US: wan2.6-i2v
+      zh_Hans: wan2.6-i2v
+  - value: wan2.6-r2v
+    label:
+      en_US: wan2.6-r2v
+      zh_Hans: wan2.6-r2v
+  - value: wan2.6-i2v-flash
+    label:
+      en_US: wan2.6-i2v-flash
+      zh_Hans: wan2.6-i2v-flash
+  - value: wan2.6-t2v
+    label:
+      en_US: wan2.6-t2v
+      zh_Hans: wan2.6-t2v
+  - value: wan3.0-video
+    label:
+      en_US: wan3.0-video
+      zh_Hans: wan3.0-video
+- name: image_url
+  type: string
+  required: false
+  label:
+    en_US: Image URL
+    zh_Hans: 参考图片链接
+  human_description:
+    en_US: Required for image2video.
+    zh_Hans: image2video 必填。
+  llm_description: Required for image2video.
+  form: form
+- name: media
+  type: string
+  required: false
+  label:
+    en_US: Media
+    zh_Hans: 参考媒体
+  human_description:
+    en_US: Set media. Enter a JSON array.
+    zh_Hans: media 请填写 JSON 数组。
+  llm_description: Set media. Enter a JSON array.
+  form: form
+- name: ratio
+  type: select
+  required: false
+  label:
+    en_US: Ratio
+    zh_Hans: 画面比例
+  human_description:
+    en_US: Set ratio.
+    zh_Hans: ratio
+  llm_description: Set ratio.
+  form: form
+  options:
+  - value: adaptive
+    label:
+      en_US: adaptive
+      zh_Hans: adaptive
+  - value: '16:9'
+    label:
+      en_US: '16:9'
+      zh_Hans: '16:9'
+  - value: '4:3'
+    label:
+      en_US: '4:3'
+      zh_Hans: '4:3'
+  - value: '1:1'
+    label:
+      en_US: '1:1'
+      zh_Hans: '1:1'
+  - value: '3:4'
+    label:
+      en_US: '3:4'
+      zh_Hans: '3:4'
+  - value: '9:16'
+    label:
+      en_US: '9:16'
+      zh_Hans: '9:16'
+- name: seed
+  type: number
+  required: false
+  label:
+    en_US: Seed
+    zh_Hans: 随机种子
+  human_description:
+    en_US: Set seed.
+    zh_Hans: seed
+  llm_description: Set seed.
+  form: form
+- name: watermark
+  type: boolean
+  required: false
+  label:
+    en_US: Watermark
+    zh_Hans: 水印
+  human_description:
+    en_US: Set watermark.
+    zh_Hans: watermark
+  llm_description: Set watermark.
+  form: form
+  default: false
+output_schema:
+  type: object
+  properties:
+    status:
+      type: string
+    success:
+      type: boolean
+    task_id:
+      type: string
+    trace_id:
+      type: string
+    media_urls:
+      type: array
+      items:
+        type: string
+    data: {}
+    result:
+      type: object
+extra:
+  python:
+    source: tools/wan_generate.py
