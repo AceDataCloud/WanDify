@@ -1,0 +1,21 @@
+{
+  "backend_revision": "7b4bbf0e4f6b83c273baed1d5b8e9bea0f3ece1c",
+  "apis": [
+    {
+      "path": "/wan/videos",
+      "spec": "openapi/6a4ecdbf-b219-4505-8277-5ec4b1ac14f8.json"
+    },
+    {
+      "path": "/wan/videos",
+      "spec": "openapi/6a4ecdbf-b219-4505-8277-5ec4b1ac14f8.json"
+    }
+  ],
+  "icon_source": {
+    "repository": "AceDataCloud/Dify",
+    "revision": "eaf0e68cd34cfe4cadece7a9ee34a98aac6b961e^",
+    "path": "plugins/wan/_assets/icon.jpg"
+  },
+  "icon_sha256": {
+    "icon.jpg": "5e95d81864124065822d83cd8a0b2a1629b6a7004d1e9944c3ab6aacc081fbde"
+  }
+}

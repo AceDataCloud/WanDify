@@ -1,0 +1,305 @@
+identity:
+  name: wan3_generate
+  author: acedatacloud
+  label:
+    en_US: Wan 3 Generate
+    zh_Hans: Wan 3 生成
+description:
+  human:
+    en_US: Generate video from text or multimodal references.
+    zh_Hans: 通过文本或多模态参考生成视频。
+  llm: Generate a Wan 3 video using text and optional media JSON. Generation returns
+    a task ID. Query the same task until complete; never resubmit a pending generation.
+parameters:
+- name: audio
+  type: boolean
+  required: false
+  label:
+    en_US: Audio
+    zh_Hans: 音频
+  human_description:
+    en_US: Include audio.
+    zh_Hans: 包含音频。
+  llm_description: Include audio.
+  form: form
+  default: false
+- name: prompt_extend
+  type: boolean
+  required: false
+  label:
+    en_US: Prompt Extend
+    zh_Hans: 扩写提示词
+  human_description:
+    en_US: Set prompt extend.
+    zh_Hans: 是否开启提示词智能改写。开启后，将使用大模型对输入的提示词进行智能扩写，可显著提升较短提示词的生成效果，但会增加处理时间。
+  llm_description: Set prompt extend.
+  form: form
+  default: false
+- name: action
+  type: select
+  required: false
+  label:
+    en_US: Action
+    zh_Hans: 操作
+  human_description:
+    en_US: Set action.
+    zh_Hans: Wan 2.6 的操作类型；wan3.0-video 可省略，由 media 自动识别模式。
+  llm_description: Set action.
+  form: form
+  default: text2video
+  options:
+  - value: text2video
+    label:
+      en_US: text2video
+      zh_Hans: text2video
+  - value: image2video
+    label:
+      en_US: image2video
+      zh_Hans: image2video
+- name: resolution
+  type: select
+  required: false
+  label:
+    en_US: Resolution
+    zh_Hans: 分辨率
+  human_description:
+    en_US: Output resolution.
+    zh_Hans: 输出分辨率。
+  llm_description: Output resolution.
+  form: form
+  default: 720P
+  options:
+  - value: 480P
+    label:
+      en_US: 480P
+      zh_Hans: 480P
+  - value: 720P
+    label:
+      en_US: 720P
+      zh_Hans: 720P
+  - value: 1080P
+    label:
+      en_US: 1080P
+      zh_Hans: 1080P
+- name: shot_type
+  type: select
+  required: false
+  label:
+    en_US: Shot Type
+    zh_Hans: 分镜模式
+  human_description:
+    en_US: Set shot type.
+    zh_Hans: 指定生成视频的镜头类型，即视频由单一连续镜头（`single`）还是多个切换镜头（`multi`）构成。
+  llm_description: Set shot type.
+  form: form
+  options:
+  - value: single
+    label:
+      en_US: single
+      zh_Hans: single
+  - value: multi
+    label:
+      en_US: multi
+      zh_Hans: multi
+- name: duration
+  type: number
+  required: false
+  label:
+    en_US: Duration
+    zh_Hans: 时长
+  human_description:
+    en_US: 2–30 or -1.
+    zh_Hans: 2–30 或 -1。
+  llm_description: 2–30 or -1.
+  form: form
+  default: 5
+- name: prompt
+  type: string
+  required: false
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  human_description:
+    en_US: Video instruction.
+    zh_Hans: 视频指令。
+  llm_description: Video instruction.
+  form: llm
+- name: negative_prompt
+  type: string
+  required: false
+  label:
+    en_US: Negative Prompt
+    zh_Hans: 反向提示词
+  human_description:
+    en_US: Set negative prompt.
+    zh_Hans: 反向提示词，用于描述不希望在视频画面中出现的内容，可用于限制视频画面。支持中英文，长度不超过 500 个字符，超出部分将自动截断。
+  llm_description: Set negative prompt.
+  form: form
+- name: size
+  type: string
+  required: false
+  label:
+    en_US: Size
+    zh_Hans: 尺寸
+  human_description:
+    en_US: Set size.
+    zh_Hans: 生成视频的尺寸规格。
+  llm_description: Set size.
+  form: form
+- name: audio_url
+  type: string
+  required: false
+  label:
+    en_US: Audio Url
+    zh_Hans: 音频链接
+  human_description:
+    en_US: Set audio url.
+    zh_Hans: 音频文件的 URL，模型将根据该音频生成对应的视频。
+  llm_description: Set audio url.
+  form: form
+- name: reference_video_urls
+  type: string
+  required: false
+  label:
+    en_US: Reference Video Urls
+    zh_Hans: 参考视频链接
+  human_description:
+    en_US: Set reference video urls. Enter a JSON array.
+    zh_Hans: 参考视频文件的 URL 数组，用于提取参考视频中的人物形象（及音色，如有），以生成符合参考特征的视频。 请填写 JSON 数组。
+  llm_description: Set reference video urls. Enter a JSON array.
+  form: form
+- name: model
+  type: select
+  required: false
+  label:
+    en_US: Model
+    zh_Hans: 模型
+  human_description:
+    en_US: Select the current API model for this operation.
+    zh_Hans: 视频模型。wan3.0-video 使用 media 自动识别文生、首尾帧或参考素材模式；旧 Wan 2.6 模型继续使用 action。
+  llm_description: Select the current API model for this operation.
+  form: form
+  default: wan3.0-video
+  options:
+  - value: wan2.6-i2v
+    label:
+      en_US: wan2.6-i2v
+      zh_Hans: wan2.6-i2v
+  - value: wan2.6-r2v
+    label:
+      en_US: wan2.6-r2v
+      zh_Hans: wan2.6-r2v
+  - value: wan2.6-i2v-flash
+    label:
+      en_US: wan2.6-i2v-flash
+      zh_Hans: wan2.6-i2v-flash
+  - value: wan2.6-t2v
+    label:
+      en_US: wan2.6-t2v
+      zh_Hans: wan2.6-t2v
+  - value: wan3.0-video
+    label:
+      en_US: wan3.0-video
+      zh_Hans: wan3.0-video
+- name: image_url
+  type: string
+  required: false
+  label:
+    en_US: Image Url
+    zh_Hans: 图片链接
+  human_description:
+    en_US: Set image url.
+    zh_Hans: 起始帧图片的 URL，该图片将作为生成视频的第一帧。
+  llm_description: Set image url.
+  form: form
+- name: media
+  type: string
+  required: false
+  label:
+    en_US: Media JSON
+    zh_Hans: 素材 JSON
+  human_description:
+    en_US: JSON array of type/url objects. Enter a JSON array.
+    zh_Hans: type/url 对象 JSON 数组。 请填写 JSON 数组。
+  llm_description: JSON array of type/url objects. Enter a JSON array.
+  form: form
+- name: ratio
+  type: select
+  required: false
+  label:
+    en_US: Ratio
+    zh_Hans: 画幅
+  human_description:
+    en_US: Output ratio.
+    zh_Hans: 输出画幅。
+  llm_description: Output ratio.
+  form: form
+  options:
+  - value: adaptive
+    label:
+      en_US: adaptive
+      zh_Hans: adaptive
+  - value: '16:9'
+    label:
+      en_US: '16:9'
+      zh_Hans: '16:9'
+  - value: '4:3'
+    label:
+      en_US: '4:3'
+      zh_Hans: '4:3'
+  - value: '1:1'
+    label:
+      en_US: '1:1'
+      zh_Hans: '1:1'
+  - value: '3:4'
+    label:
+      en_US: '3:4'
+      zh_Hans: '3:4'
+  - value: '9:16'
+    label:
+      en_US: '9:16'
+      zh_Hans: '9:16'
+- name: seed
+  type: number
+  required: false
+  label:
+    en_US: Seed
+    zh_Hans: 随机种子
+  human_description:
+    en_US: Set seed.
+    zh_Hans: seed
+  llm_description: Set seed.
+  form: form
+- name: watermark
+  type: boolean
+  required: false
+  label:
+    en_US: Watermark
+    zh_Hans: 水印
+  human_description:
+    en_US: Add watermark.
+    zh_Hans: 添加水印。
+  llm_description: Add watermark.
+  form: form
+  default: false
+output_schema:
+  type: object
+  properties:
+    status:
+      type: string
+    success:
+      type: boolean
+    task_id:
+      type: string
+    trace_id:
+      type: string
+    media_urls:
+      type: array
+      items:
+        type: string
+    data: {}
+    result:
+      type: object
+extra:
+  python:
+    source: tools/wan3_generate.py
