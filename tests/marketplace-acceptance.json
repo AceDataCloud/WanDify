@@ -1,0 +1,31 @@
+{
+  "repo": "WanDify",
+  "marketplace_url": "https://marketplace.dify.ai/plugin/acedatacloud/wan",
+  "identifier": "acedatacloud/wan:0.0.1@60f156d611902adc152c8ba1d11cbe7c48f62206bc7594527c53d4fbd7391a6b",
+  "installation_source": "marketplace",
+  "workflow_id": "017b4604-5f6d-449c-ac6e-5238dc2fbd09",
+  "workflow_status": "succeeded",
+  "service_status": "succeeded",
+  "case": "Wan Marketplace Installed Transport Readback",
+  "media_urls": [
+    "https://platform2.cdn.acedata.cloud/wan/6f6aea38-2b6a-4c0a-b1db-5ff10f1c9bc9.mp4"
+  ],
+  "outputs": {
+    "status": "succeeded",
+    "success": true,
+    "task_id": "",
+    "trace_id": ""
+  },
+  "icon_matches_source": true,
+  "paid_generation_reused": true,
+  "prior_media_decode_evidence": true,
+  "media_readback_status": "completed existing task output; generation not repeated",
+  "tested_at": "2026-10-08T01:26:57.567309+00:00",
+  "environment": "Dify CE 1.17.1 / plugin daemon 0.6.10-local",
+  "signature_verification_enabled": true,
+  "remote_debug_used": false,
+  "marketplace_install_tested": true,
+  "cloud_tested": false,
+  "screenshot": "evidence/marketplace-20261008.png",
+  "workflow": "evidence/marketplace-20261008-workflow.json"
+}
