@@ -12,6 +12,8 @@ description:
   zh_Hans: 在 Dify 工作流中使用 Ace Data Cloud Wan API。
 icon: icon.png
 icon_dark: icon.png
+tags:
+  - videos
 resource:
   memory: 268435456
   permission:
